@@ -1,15 +1,18 @@
 from py_evil_hangman.word_maker import WordMakerAI
 import pytest
+import os
 
 # To test, you will probably find it easiest to make your own simplified dictionary.txt.
+HERE = os.path.dirname(__file__)
+DICT_PATH = os.path.join(HERE, '..', 'dictionary.txt')
 
 def test_get_letter_positions_in_word():
-    wm = WordMakerAI("dictionary.txt")
+    wm = WordMakerAI(DICT_PATH)
     wm.reset(5)
     assert wm.get_letter_positions_in_word("hello", "l") == (2, 3)
 
 def test_letters_remaining():
-    wm = WordMakerAI("dictionary.txt")
+    wm = WordMakerAI(DICT_PATH)
     wm.reset(5)
     to_guess = "aeiou"
     for letter in list(to_guess):
@@ -17,7 +20,7 @@ def test_letters_remaining():
     assert wm.get_amount_of_valid_words() == 287
 
 def test_blackbox():
-    wm = WordMakerAI("dictionary.txt")
+    wm = WordMakerAI(DICT_PATH)
     wm.reset(6)
     to_guess = "asdfghjklzxcvbnmrpw"
     for letter in list(to_guess):
